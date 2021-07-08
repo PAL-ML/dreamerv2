@@ -77,7 +77,7 @@ atari:
   steps: 2e8
   eval_every: 1e5
   log_every: 1e5
-  prefill: 200000
+  prefill: 0  #200000
   grayscale: True
   train_every: 16
   clip_rewards: tanh
