@@ -12,6 +12,7 @@ defaults:
   time_limit: 0
   prefill: 10000
   image_size: [64, 64]
+  ram_size: [128, 1]
   grayscale: False
   replay_size: 2e6
   dataset: {batch: 50, length: 50, oversample_ends: True}
@@ -32,10 +33,10 @@ defaults:
 
   # World Model
   pred_discount: True
-  grad_heads: [image, reward, discount]
+  grad_heads: [ram, reward, discount]
   rssm: {hidden: 400, deter: 400, stoch: 32, discrete: 32, act: elu, std_act: sigmoid2, min_std: 0.1}
-  encoder: {depth: 48, act: elu, kernels: [4, 4, 4, 4], keys: [image]}
-  decoder: {depth: 48, act: elu, kernels: [5, 5, 6, 6]}
+  encoder: {layers: 2, units: 64, act: elu, dist: None}
+  decoder: {layers: 2, units: 128, act: elu, dist: None}
   reward_head: {layers: 4, units: 400, act: elu, dist: mse}
   discount_head: {layers: 4, units: 400, act: elu, dist: binary}
   loss_scales: {kl: 1.0, reward: 1.0, discount: 1.0}
@@ -74,7 +75,7 @@ atari:
   task: atari_pong
   time_limit: 108000  # 30 minutes of game play.
   action_repeat: 4
-  steps: 2e8
+  steps: 1000 #2e8
   eval_every: 1e5
   log_every: 1e5
   prefill: 100  #200000
